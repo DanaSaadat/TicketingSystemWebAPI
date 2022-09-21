@@ -1,0 +1,176 @@
+﻿@*@model IEnumerable<DataAccess.Entity.Ticket>*@
+@model IEnumerable<Service.Models.TicketModel>
+@using TicketingSystemNew2.enums
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{ var temp = @TempData["AlertMsg"]; }
+
+
+@if (temp != null && temp.ToString() != "0")
+
+{
+    <div class="alert alert-success" style="font-size:20px;">
+        <strong> success !</strong>   @temp
+    </div>
+
+}
+
+
+
+@{
+
+
+    bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+    if (isSuperAdmin)
+    {
+        <p>
+            @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    }
+    else
+    {
+        List<int> objlt = (List<int>)Session["userRoles"];
+        var list = (List<int>)Session["userRoles"];
+        foreach (var c in list)
+        {
+            if ((int)c == (int)permission.AddTicket)
+            {
+                <p>
+                    @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn btn-primary" })
+                </p>
+            }
+        }
+    }
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </th>
+        <th>
+            status
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Project.Name)*@
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Status.Name)*@
+                @Html.DisplayFor(modelItem => item.statusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+
+            @{
+
+                if (isSuperAdmin)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                    </td>
+                }
+                else
+                {
+
+
+                    List<int> objlt1 = (List<int>)Session["userRoles"];
+                    var list1 = (List<int>)Session["userRoles"];
+                    foreach (var c in list1)
+                    {
+                        if ((int)c == (int)permission.UpdateTicket)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                        if ((int)c == (int)permission.DeleteTicket)
+                        {
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                            </td>
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(Session["DepartmentID"].ToString()))
+                    {
+
+
+                        //if (Convert.ToInt32(Session["DepartmentID"]) == 2) // ba
+                        if (Convert.ToInt32(Session["DepartmentID"]) == (int)perRole.BA) // ba
+
+                        {
+        <td>
+            @*@if (item.statusID == 3) // new*@
+            @if (item.statusID == (int)Status.waitingforBA) // new
+            {
+
+                            
+                @Html.ActionLink("Ball Ticket", "EditStatusPending", new { id = item.id }, new { @class = "btn btn-primary" })
+            }
+            @if (item.AssignTo == Convert.ToInt32(Session["UserID"]))
+            {
+                @Html.ActionLink("Go to developer", "EditStatusBA", new { id = item.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Reject", "EditRejectStatus", new { id = item.id }, new { @class = "btn btn-danger" })
+            }
+
+        </td>
+
+                        }
+
+                        //if (Convert.ToInt32(Session["DepartmentID"]) == 3 && !isSuperAdmin) //dev
+                        if (Convert.ToInt32(Session["DepartmentID"]) == (int)perRole.Developer && !isSuperAdmin) //dev
+
+                        {
+        <td>
+            @*@if (item.statusID == 4)*@
+            @if (item.statusID == (int)Status.GotoDeveloper)
+              {
+
+                          
+                @Html.ActionLink("Ball Ticket", "EditStatusPending", new { id = item.id }, new { @class = "btn btn-primary" })
+            }
+
+            @if (item.AssignTo == Convert.ToInt32(Session["UserID"]))
+            {
+                @Html.ActionLink("Approve", "EditStatusDeveloper", new { id = item.id }, new { @class = "btn btn-primary" })
+            }
+        </td>
+                        }
+                    }
+                }
+            }
+        </tr>
+    }
+
+</table>
+
+<div>
+
+    @if (Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+    {
+        @Html.ActionLink("Back to List", "Loggedin", "Login")
+    }
+
+    else
+    {
+        @Html.ActionLink("Back to List", "Logout", "Login")
+    }
+
+</div>

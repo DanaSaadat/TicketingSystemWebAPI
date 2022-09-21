@@ -1,0 +1,93 @@
+﻿@model Service.Models.ProjectModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@if (TempData["AlertMsg2"] != null)
+{
+
+    <div class="alert alert-danger" style="font-size:20px;">
+        @TempData["AlertMsg2"]
+    </div>
+}
+<h2>Create Project</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Project</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Employee", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.ListBoxFor(s => s.ProjectEmp, new MultiSelectList(Model.Emps, "UserID", "UserName"), new { @class = "form-control" })*@
+                @Html.ListBox("ProjectEmp", null, htmlAttributes: new { @class = "form-control" })
+                <br />
+
+                @*<button onclick="deleteSelect('ProjectEmp');return false;">Delete Selected Item</button>
+                    <button onclick="window.location.reload();return false;">Reset</button>*@
+
+                @*@Html.ListBoxFor(s => s.ProjectEmp, new MultiSelectList(Model.Emps, "UserID", "UserName"), new { @class = "form-control" })*@
+                @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Client", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBox("ProjectClient", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+
+
+
+<script>
+
+
+    function deleteSelect(listid) {
+        var listb = document.getElementById(listid);
+        var len = listb.options.length;
+        for (var i = listb.options.length - 1; i >= 0; i--) {
+            if (listb.options[i].selected == true) {
+                listb.options.remove(i);
+            }
+        }
+    }
+</script>

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Service.Models.ApprovalModel>
+@using TicketingSystemNew2.enums
+
+
+@{
+    ViewBag.Title = "status";
+}
+
+<h2>status</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            Manager
+            @*@Html.DisplayNameFor(model => model.Login.UserName)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </th>
+        <th>
+            Status
+        </th>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.Status.Name)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.RejectReason)
+        </th>
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Status.Name)*@
+                @*@if (item.statusID == 1)*@
+                @if (item.statusID == (int)Status.approve)
+                {
+                    <div class="Approve">
+
+
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+
+                    </div>
+
+                }
+                @*@if (item.statusID == 2)*@
+                @if (item.statusID == (int)Status.reject)
+                {
+                    <div class="Reject">
+
+
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+
+                    </div>
+                }
+                @if (item.statusID == (int)Status.New)
+                {
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                }
+            </td>
+            <td>
+                @if (item.RejectReason != "null")
+                {
+                    <div class="Reject">
+                        @Html.DisplayFor(modelItem => item.RejectReason)
+                    </div>
+                }
+                else if (item.RejectReason == "null")
+                {
+                    var StringEmpty = ""; 
+                    @Html.DisplayFor(modelItem => StringEmpty) 
+                }
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<style>
+    .Approve {
+        color: #5251ab;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .Reject {
+        color: red;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>

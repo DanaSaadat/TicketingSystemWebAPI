@@ -1,0 +1,225 @@
+﻿
+
+
+@using TicketingSystemNew2.enums
+@*@using Ticketing_SystemNew.Entity*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*@if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Admin"))
+                            if(Roles.IsUserInRole("Admin2022", "Admin"))
+
+
+                            {
+                                <li> @Html.ActionLink("Department", "Index", "Department")</li>
+                                <li> @Html.ActionLink("Project", "Index", "Project")</li>
+                                <li> @Html.ActionLink("User", "Index", "User")</li>
+                                <li> @Html.ActionLink("Client", "Index", "Client")</li>
+                                <li> @Html.ActionLink("Ticket", "Index", "Ticket")</li>
+                                <li> @Html.ActionLink("Permission", "Index", "Permission")</li>
+                            }
+                        }*@
+
+                    @*@if (Session["userRoles"].ToString() == "6")
+                        {*@
+
+                    @*@{
+                        //    var categories = (List<Ticketing_SystemNew.Entity.Permission>)ViewData["MyData"]; // Cast the list
+                        //    var categories = (List<int>)ViewData["MyData"]; // Cast the list
+                            var permissions = (List<Ticketing_SystemNew.Entity.Permission>)ViewBag.MyData; // Cast the list
+                            var permissions4 = (List<int>)ViewBag.MyData; // Cast the list
+                        }*@
+
+
+                    @*@foreach (var c in permissions)*@
+                    @*@foreach (var c in ViewBag.MyData)
+                        {
+                            if (c == (int)permission.Department || Convert.ToInt32(Session["UserID"]) == 1)
+                            {
+                                <li> @Html.ActionLink("Department", "Index", "Department")</li>
+
+                            }
+                        }*@
+
+                    @{
+                        List<int> objlt = (List<int>)Session["userRoles"];
+                        var list = (List<int>)Session["userRoles"];
+                        //bool isSuperAdmin = list.Contains((int)permission.SuperAdmin);
+                        bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+
+
+
+                        if (Convert.ToInt32(Session["data"]) == Convert.ToInt32(Session["UserID"]))
+                        {
+                            <li style="color: white; font-size: 21px;" class="glyphicon glyphicon-comment">
+                                @Html.ActionLink("Approval", "Index", "Approval", null, new { @class = "Link" })
+
+                                <a style=" margin-top: -67px; margin-left: -10px; color: red !important;float:left;" href="@Url.Action("Index", "Approval")">
+                                    @*<a style=" margin-top: -87px; margin-left: -13px; color: red !important;" href="@Url.Action("Index", "Approval")">*@
+
+                                    @TempData["AlertMsg"]
+                                </a>
+                                @*<a href="#" class="notification">
+                                        <span>@Html.ActionLink("Approval", "Index", "Approval")</span>
+                                        <span class="badge">@TempData["AlertMsg"]</span>
+                                    </a>*@
+
+                            </li>
+
+
+
+                        }
+
+
+
+
+
+
+                        if (isSuperAdmin)
+                        {
+                            <li> @Html.ActionLink("Logs", "Index", "Audit")</li>
+                            <li> @Html.ActionLink("Department", "Index", "Department")</li>
+                            <li> @Html.ActionLink("Departmentt", "Index1", "Department")</li>
+
+                            <li> @Html.ActionLink("Project", "Index", "Project")</li>
+                            <li> @Html.ActionLink("User", "Index", "User")</li>
+                            <li> @Html.ActionLink("UserAdo", "Index1", "User")</li>
+                            <li> @Html.ActionLink("Client", "Index", "Client")</li>
+                            <li> @Html.ActionLink("Clientt", "Index1", "Client")</li>
+                            @*<li> @Html.ActionLink("Ticket", "Index", "Ticket", new { id = Session["UserID"].ToString() }, null)</li>*@
+                            <li> @Html.ActionLink("Ticket", "Index", "Ticket")</li>
+                            <li> @Html.ActionLink("Permission", "Index", "Permission")</li>
+
+                        }
+                        else
+                        {
+
+
+
+                            if (list != null)
+                            {
+                                foreach (var c in list)
+                                {
+                                    if ((int)c == (int)permission.Department || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        <li> @Html.ActionLink("Department", "Index", "Department")</li>
+
+                                    }
+
+                                    if ((int)c == (int)permission.Ticket || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        @*<li> @Html.ActionLink("Ticket", "Index", "Ticket", new { id = Session["UserID"].ToString(), DepartmentID = Session["DepartmentID"].ToString() },null)</li>*@
+                                        <li> @Html.ActionLink("Ticket", "Index", "Ticket")</li>
+
+
+                                    }
+
+                                    if ((int)c == (int)permission.Project || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        <li> @Html.ActionLink("Project", "Index", "Project")</li>
+
+
+                                    }
+
+                                    if ((int)c == (int)permission.User || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        <li> @Html.ActionLink("User", "Index", "User")</li>
+
+
+
+                                    }
+
+                                    if ((int)c == (int)permission.Client || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        <li> @Html.ActionLink("Client", "Index", "Client")</li>
+
+
+
+                                    }
+
+                                    if ((int)c == (int)permission.Permission || Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin)
+                                    {
+                                        <li> @Html.ActionLink("Permission", "Index", "Permission")</li>
+
+
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                    @*@if (Convert.ToInt32(Session["userRoles"]) == (int)permission.Department || Convert.ToInt32(Session["UserID"]) == 1)
+                        {
+                            <li> @Html.ActionLink("Department", "Index", "Department")</li>
+
+                        }
+                        @if (Convert.ToInt32(Session["userRoles"]) == (int)permission.project || Convert.ToInt32(Session["UserID"]) == 1)
+                        {
+                            <li> @Html.ActionLink("Project", "Index", "Project")</li>
+
+                        }
+
+                        @if (Convert.ToInt32(Session["userRoles"]) == (int)permission.User || Convert.ToInt32(Session["UserID"]) == 1)
+                        {
+                            <li> @Html.ActionLink("User", "Index", "User")</li>
+
+                        }
+
+                        @if (Convert.ToInt32(Session["userRoles"]) == (int)permission.Client || Convert.ToInt32(Session["UserID"]) == 1)
+                        {
+                            <li> @Html.ActionLink("Client", "Index", "Client")</li>
+
+                        }
+                        @if (Convert.ToInt32(Session["userRoles"]) == (int)permission.Ticket || Convert.ToInt32(Session["UserID"]) == 1)
+                        {
+                            <li> @Html.ActionLink("Ticket", "Index", "Ticket")</li>
+
+                        }*@
+
+
+
+                    @*}*@
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<style>
+    .navbar-inverse .navbar-nav > li > a {
+        color: white !important;
+        font-size: 20px;
+    }
+
+    .Link {
+        margin-top: -24px;
+        margin-left: 30px;
+    }
+</style>
+
+

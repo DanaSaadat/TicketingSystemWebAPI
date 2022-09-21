@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Service.Models.AuditModel>
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.AuditID)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IPAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaAccessed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Response)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bug)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Validation)
+            </th>
+
+            @*<th>
+                @Html.DisplayNameFor(model => model.ResponseObject)
+            </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AuditID)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IPAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaAccessed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Response)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bug)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Validation)
+                </td>
+
+                @*<td>
+                    @{
+                        var cc = item.ResponseObject ;
+
+                        //ccdd = cc.Replace(':', '=').Replace('{', ' ').Trim() ;
+
+                        var area = item.AreaAccessed.Split('/');
+
+
+
+                        if (item.ResponseObject != "OK" &&  area[1] == "Department")
+                        {
+                            var dept = JsonConvert.DeserializeObject<Service.Models.DepartmentModel>(cc);
+
+                            var ccc =     string.Concat("ID =", dept.ID, ", " + "Name = " + dept.Name);
+
+
+                            @Html.DisplayFor(modelItem => ccc)
+
+                        }
+                    }
+                </td>*@
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+
+    </script>
+}

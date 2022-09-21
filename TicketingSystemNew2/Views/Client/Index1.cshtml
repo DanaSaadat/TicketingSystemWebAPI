@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Index1";
+}
+<div class="container">
+    <h2>Client </h2>
+    <h5 style="font-weight: bold; font-size: 16px; background: #0f1466; color: snow; width: 200px !important; height: 35px !important; padding: 9px; ">Total Client: @ViewBag.TotalClient</h5>
+
+    <button style="background-color: #3c4080 !important;" type="button" class="btn btn-success center-block" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Client </button><br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    UserName
+                </th>
+                @*<th>
+                        Password
+                    </th>*@
+                <th>
+                    FirstName
+                </th>
+                <th>
+                    LastName
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Mobile
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" style="text-align: center; font-weight: bold; background: gainsboro;  padding: 7px; " id="myModalLabel"> </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="id">id</label>
+                        <input type="text" class="form-control" style="border-color: #070101 !important;" id="UserID" placeholder="UserID" disabled="disabled" />
+                    </div>
+                    <div class="form-group">
+                        <label for="UserName">UserName</label>
+                        <input type="text" class="form-control" style="border-color: #070101 !important;" id="UserName" placeholder="Name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" style="border-color: #070101 !important;" id="Password" placeholder="Password" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FirstName">FirstName</label>
+                        <input type="text" class="form-control" style="border-color: #070101 !important;" id="FirstName" placeholder="FirstName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName">LastName</label>
+                        <input type="text" class="form-control"  style="border-color: #070101 !important;" id="LastName" placeholder="LastName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" style="border-color: #070101 !important;"  id="Email" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Mobile">Mobile</label>
+                        <input type="number" class="form-control"  style="border-color: #070101 !important;" id="Mobile" placeholder="Mobile" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Permission">Permission</label>
+                        @*<div class="col-md-10">*@
+                        @Html.ListBox("Permission", null, htmlAttributes: new { @class = "form-control", @id = "PermissionUser" })
+                        @*</div>*@
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="Add();">
+                   
+                        Add
+
+
+
+                </button>
+
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/Client.js"></script>
+
+<script>
+
+    var array = @Html.Raw(Json.Encode(@ViewBag.PermissionUser));
+    var ddl = $("#PermissionUser").val(array);
+
+    //$("th")..css('border-color', 'lightgrey');
+</script>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .hidden {
+        display: none;
+    }
+    .form-control {
+        border-color: black !important;
+    }
+</style>

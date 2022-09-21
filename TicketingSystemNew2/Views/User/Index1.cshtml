@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Service.Models.LoginModel>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Index1</h2>
+
+
+@{ var temp = @TempData["AlertMsg"]; }
+
+
+@if (temp != null && temp.ToString() != "0")
+
+{
+    <div class="alert alert-success" style="font-size:20px;">
+        <strong> success !</strong>   @temp
+    </div>
+
+}
+
+<p>
+    @Html.ActionLink("Create New User", "Create1", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsClient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsUserNameExist)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsUserNameaAndPassword)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.ManangerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentID)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsClient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsUserNameExist)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsUserNameaAndPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManangerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotificationCount)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DepartmentID)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit1", new { id = item.UserID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete1", new { id = item.UserID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,15 @@
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\Service.dll.config
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\Service.dll
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\Service.pdb
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\DataAccess.dll
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\EntityFramework.dll
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\DataAccess.pdb
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\DataAccess.dll.config
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\EntityFramework.xml
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\obj\Debug\Service.csproj.AssemblyReference.cache
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\obj\Debug\Service.csproj.CoreCompileInputs.cache
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\obj\Debug\Service.csproj.CopyComplete
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\obj\Debug\Service.dll
+C:\Users\btit\source\repos\TicketingSystemNew2\Service\obj\Debug\Service.pdb

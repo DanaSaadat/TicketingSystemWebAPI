@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Service.Models.ProjectModel>
+@using TicketingSystemNew2.enums
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{ var temp = @TempData["AlertMsg"]; }
+
+
+@if (temp != null && temp.ToString() != "0")
+
+{
+    <div class="alert alert-success" style="font-size:20px;">
+        <strong> success !</strong>   @temp
+    </div>
+
+}
+
+
+@{
+
+
+    bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+    if (isSuperAdmin)
+    {
+        <p>
+            @Html.ActionLink("Create New project", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    }
+    else
+    {
+
+
+
+        List<int> objlt = (List<int>)Session["userRoles"];
+        var list = (List<int>)Session["userRoles"];
+        foreach (var c in list)
+        {
+            if ((int)c == (int)permission.AddProject)
+            {
+                <p>
+                    @Html.ActionLink("Create New project", "Create", null, new { @class = "btn btn-primary" })
+                </p>
+            }
+        }
+    }
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>Action </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+
+            @{
+
+
+
+
+                if (isSuperAdmin)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Status", "status", new { id = item.ID }, new { @class = "btn btn-success" })
+
+                    </td>
+                }
+                else
+                {
+
+
+                    List<int> objlt1 = (List<int>)Session["userRoles"];
+                    var list1 = (List<int>)Session["userRoles"];
+                    foreach (var c in list1)
+                    {
+                        if ((int)c == (int)permission.UpdateProjet)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                        if ((int)c == (int)permission.DeleteProject)
+                        {
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                            </td>
+                        }
+                    }
+                }
+            }
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Loggedin", "Login")
+</div>

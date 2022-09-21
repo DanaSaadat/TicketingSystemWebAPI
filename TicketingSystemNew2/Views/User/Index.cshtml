@@ -1,0 +1,253 @@
+﻿@model IEnumerable<Service.Models.LoginModel>
+@using TicketingSystemNew2.enums
+@*@using PagedList;
+    @using PagedList.Mvc;
+    @model PagedList.IPagedList<Service.Models.LoginModel>*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{ var temp = @TempData["AlertMsg"]; }
+
+
+@if (temp != null && temp.ToString() != "0")
+
+{
+    <div class="alert alert-success" style="font-size:20px;">
+        <strong> success !</strong>   @temp
+    </div>
+
+}
+
+
+@{
+
+    bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+    if (isSuperAdmin)
+    {
+        <p>
+            @Html.ActionLink("Create New User", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    }
+    else
+    {
+
+
+
+        List<int> objlt = (List<int>)Session["userRoles"];
+        var list = (List<int>)Session["userRoles"];
+        foreach (var c in list)
+        {
+            if ((int)c == (int)permission.AddUser)
+            {
+                <p>
+                    @Html.ActionLink("Create New User", "Create", null, new { @class = "btn btn-primary" })
+                </p>
+
+            }
+        }
+    }
+}
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Department.Name)
+            @*@Html.DisplayNameFor(model => model.DepartmentName)*@
+
+        </th>
+
+        <th> Action </th>
+    </tr>
+    @*@if(Model.)*@
+
+
+    @*//foreach (var item in Model.Where(x => x.DepartmentName != null))*@
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Department.Name)*@
+                @if (item.DepartmentName != null)
+                {
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                }
+                else
+                {
+                    string xx = "";
+
+                    @Html.DisplayFor(modelItem => xx)
+                }
+            </td>
+
+
+
+            @{
+
+
+                if (isSuperAdmin)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-primary" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger" })
+                    </td>
+                }
+
+
+
+
+                else
+                {
+
+
+
+                    List<int> objlt1 = (List<int>)Session["userRoles"];
+                    var list1 = (List<int>)Session["userRoles"];
+                    foreach (var c in list1)
+                    {
+                        if ((int)c == (int)permission.UpdateUser)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                        if ((int)c == (int)permission.DeleteUser)
+                        {
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger" })
+                            </td>
+                        }
+                    }
+                }
+
+            }
+
+        </tr>
+    }
+
+
+
+
+</table>
+
+
+@{
+
+    double totalPages = ViewBag.totalPages;
+    for (int i = 1; i <= totalPages; i++)
+    {
+
+        <ul class="pagination">
+            <li>
+                @Html.ActionLink(i.ToString(), "Index", new { pageNumber = i })
+
+            </li>
+
+        </ul>
+
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Loggedin", "Login")
+</div>
+
+@*<input type="hidden" value="@Model.PageNumber" id="btnHidden" />*@
+         @*@Html.ActionLink("next", "Index", new { page = @Model.PageNumber })*@ 
+    @*<input type="button" value="next" id="btnNext" />*@
+
+    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $("#btnNext").click(function () {
+
+
+        nextPage();
+    });
+
+    function nextPage()
+    {
+        var page = $('#btnHidden').val();
+      //  alert(page);
+
+        //var empObj = {
+        //    page: $('#btnHidden').val(),
+
+
+        //};
+
+           @*var url = '@Url.Action("Indexpage", "User")';*@
+           var url = '@Url.Action("Index", "User")';
+        window.location.href = url + "?page=" + page;
+        //$.ajax({
+        //    url: "/User/Indexpage",
+        //    data: JSON.stringify(empObj),
+        //    type: "POST",
+        //    //typr: "GET",
+        //    contentType: "application/json;charset=utf-8",
+        //    dataType: "json",
+        //    success: function (page) {
+        //        test(page);
+
+
+
+        //    },
+        //    error: function (errormessage) {
+        //        alert(errormessage.responseText);
+        //    }
+        //});
+    }
+
+    function test(page)
+    {           var url = '@Url.Action("Index", "User")';
+
+      //  location.href = '/User/Index/' + page;
+        window.location.href = url + "?page=" + page;
+
+    }
+</script>

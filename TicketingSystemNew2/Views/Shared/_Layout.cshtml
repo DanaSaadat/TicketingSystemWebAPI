@@ -1,0 +1,86 @@
+﻿
+@using TicketingSystemNew2.enums
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+
+
+                    @{
+                        bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+
+
+                        if (isSuperAdmin)
+                        {
+
+                            <li> @Html.ActionLink("Logs", "Index", "Audit")</li>
+
+                            <li> @Html.ActionLink("Department", "Index", "Department")</li>
+                            <li> @Html.ActionLink("Departmentt", "Index1", "Department")</li>
+
+                            <li> @Html.ActionLink("User", "Index", "User")</li>
+                            <li> @Html.ActionLink("UserAdo", "Index1", "User")</li>
+                            <li> @Html.ActionLink("Client", "Index", "Client")</li>
+                            <li> @Html.ActionLink("Clientt", "Index1", "Client")</li>
+                            <li> @Html.ActionLink("Project", "Index", "Project")</li>
+
+                            <li> @Html.ActionLink("Ticket", "Index", "Ticket")</li>
+                            <li> @Html.ActionLink("Permission", "Index", "Permission")</li>
+                        }
+                    }
+
+                    @*<li>@Html.ActionLink("Login", "Login", "Login")</li>*@
+                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        @*@RenderSection("Body")*@
+        <hr />
+        <footer>
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    @*<div class="row">
+        <div class="col-lg-12">
+           
+        </div>
+    </div>*@
+
+</body>
+</html>
+<style>
+    .navbar-inverse .navbar-nav > li > a {
+        color: white !important;
+        font-size: 20px;
+    }
+</style>

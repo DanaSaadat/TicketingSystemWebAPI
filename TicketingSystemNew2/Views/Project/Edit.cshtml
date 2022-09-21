@@ -1,0 +1,113 @@
+﻿@model Service.Models.ProjectModel
+@*@model Service.Models.*@
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@if (TempData["AlertMsg2"] != null)
+{
+
+    <div class="alert alert-danger" style="font-size:20px;">
+        @TempData["AlertMsg2"]
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Project</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+            @*@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @*@Html.Label("Project Employee", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Employee", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.ListBox("ProjectEmp1", null, htmlAttributes: new { @class = "form-control", @name = "ProjectEmp", @id = "projEmp" })
+
+
+                <br />
+
+                @*<button class="btn bg-danger" onclick="deleteSelect('ProjectEmp');return false;">Delete Selected Item</button>
+            <button onclick="window.location.reload();return false;">Reset</button>*@
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            @*@Html.Label("Project Client", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Client", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @*@Html.ListBox("ProjectClient", null, htmlAttributes: new { @class = "form-control" })*@
+
+                @Html.ListBox("ProjectClient1", null, htmlAttributes: new { @class = "form-control", @name = "ProjectClient", @id = "projcli" })
+
+                @*@Html.ListBoxFor(s => s.ProjectClient, null, htmlAttributes: new { @class = "form-control" })*@
+                @*@Html.ListBox("ProjectClient", null, htmlAttributes: new { @class = "form-control" })*@
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    //$("#projEmp").trigger('change');
+    //$("#projcli").trigger('change');
+
+    var array = @Html.Raw(Json.Encode(@ViewBag.ProjectEmp));
+    //var ddl = $("#projEmp").val(array).change('trigger');
+    var ddl = $("#projEmp").val(array);
+
+
+
+     var array2 = @Html.Raw(Json.Encode(@ViewBag.ProjectClient));
+    //var ddl2 = $("#projcli").val(array2).change('trigger');
+    var ddl2 = $("#projcli").val(array2);
+
+
+
+
+    function deleteSelect(listid) {
+        var listb = document.getElementById(listid);
+        var len = listb.options.length;
+        for (var i = listb.options.length - 1; i >= 0; i--) {
+            if (listb.options[i].selected == true) {
+                listb.options.remove(i);
+            }
+        }
+    }
+</script>

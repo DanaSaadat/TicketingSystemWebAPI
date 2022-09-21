@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Service.Models.ApprovalModel>
+@using TicketingSystemNew2.enums
+
+@*@model IEnumerable<TicketingSystemNew3.Entity.Project>*@
+@*@model IEnumerable<TicketingSystemNew3.Entity.Approval>*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            project
+        </th>
+
+        <th>
+            employee
+        </th>
+        <th>
+            Client
+        </th>
+        <th>
+            status
+        </th>
+        <th>Action </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+
+            <td>
+                @{
+                    //string parameterValue1 = string.Join(" , ", item.Project.ProjectEmp.Where(x => x.ProjectID == item.Project.ID).Select(x => x.Login.UserName));
+                    string parameterValue1 = string.Join(" , ", item.Project.ProjectEmp.Where(x => x.ProjectID == item.ProjectID.Value).Select(x => x.Login.UserName));
+                    //string parameterValue1 = string.Join(" , ", item.lstname);
+
+                }
+                @Html.DisplayFor(modelItem => parameterValue1)
+
+            </td>
+
+
+            <td>
+                @{
+                    //string parameterValue2 = string.Join(" , ", item.Project.ProjectClient.Where(x => x.ProjectID == item.Project.ID).Select(x => x.Login.UserName));
+                    string parameterValue2 = string.Join(" , ", item.Project.ProjectClient.Where(x => x.ProjectID == item.ProjectID.Value).Select(x => x.Login.UserName));
+                }
+                @Html.DisplayFor(modelItem => parameterValue2)
+
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Status.Name)*@
+                @*@if (item.statusID == 1)*@
+                @if (item.statusID == (int)Status.approve)
+                {
+                    <div class="Approve">
+
+
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+
+                    </div>
+
+                }
+                @*@if (item.statusID == 2)*@
+                @if (item.statusID == (int)Status.reject)
+                {
+                    <div class="Reject">
+
+
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+
+                    </div>
+                }
+                @if (item.statusID == (int)Status.New)
+                {
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                }
+            </td>
+            <td>
+                @if (item.statusID == (int)Status.New)
+                {
+                    @Html.ActionLink("Approve", "ApproveManager", new { id = item.id, projectID = item.Project.ID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Reject", "RejectManager", new { id = item.id, projectID = item.Project.ID }, new { @class = "btn btn-danger" })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<style>
+    .Approve {
+        color: #5251ab;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .Reject {
+        color: red;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>

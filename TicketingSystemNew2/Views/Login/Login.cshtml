@@ -1,0 +1,166 @@
+﻿@model Service.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#btnLogin").click(function () {
+            EncrptUserNameandpassword();
+
+        });
+    });
+
+    function EncrptUserNameandpassword() {
+        debugger;
+        var UserName = $('#txtUserName').val();
+        var Password = $('#txtPassword').val();
+        if (UserName == "") {
+            alert("User Name is required");
+            return false;
+        }
+        else if (Password == "") {
+            alert("password is required");
+            return false;
+        }
+
+
+        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+  
+
+        var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(UserName), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            }).toString();
+         
+
+
+
+
+        var encryptedpassword = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(Password), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            }).toString();
+       
+
+        var empObj = {
+            UserName: encryptedlogin,
+            Password: encryptedpassword
+          
+
+        };
+
+        $.ajax({
+            //async: true,
+            url: "/Login/Login",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            processData: false,
+            data: JSON.stringify(empObj),
+            success: function (result) {
+                if (result)
+                {
+                    location.href = '/Login/Loggedin';
+                }
+                //else if (result.AttemptCount == 5 && result.test == false)
+                //{
+                //    location.href = '/Login/Login';
+                //    alert("Your account was blocked ! for a 15 minutes, please try again later.");
+
+                //}
+                else
+                {
+                    location.href = '/Login/Login';
+                    alert("User Name Or Password Is Not Valid!");
+                }
+
+
+            //    alert(result);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        })
+    }
+</script>
+
+
+@if (ViewBag.MyErrorMessage != null)
+{
+
+
+    <div class="alert alert-danger" style="font-size:20px;">
+        Exception Details : 
+        @ViewBag.MyErrorMessage
+    </div>
+}
+<h2>Login</h2>
+
+@*@if (ViewData["msg"] != null)
+{
+    <div class="alert alert-danger" style="font-size:20px;">
+        @ViewData["msg"]
+    </div>
+}*@
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+        @*<h4>Login</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @id = "txtUserName" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Create" class="btn btn-default" />*@
+                @*<input type="submit" id="btnLogin" value="Login" class="btn btn-primary" />*@
+                <input type="button" id="btnLogin" value="Login" class="btn btn-primary" />
+
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

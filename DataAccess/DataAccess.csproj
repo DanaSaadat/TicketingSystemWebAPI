@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2D5B0D21-0121-4A9A-A154-95D376C0DE90}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuditRepository.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="DataContext.cs" />
+    <Compile Include="Entity\Approval.cs" />
+    <Compile Include="Entity\Audit.cs" />
+    <Compile Include="Entity\Department.cs" />
+    <Compile Include="Entity\Login.cs" />
+    <Compile Include="Entity\Permission.cs" />
+    <Compile Include="Entity\PermissionUser.cs" />
+    <Compile Include="Entity\Project.cs" />
+    <Compile Include="Entity\ProjectClient.cs" />
+    <Compile Include="Entity\ProjectEmp.cs" />
+    <Compile Include="Entity\Status.cs" />
+    <Compile Include="Entity\Ticket.cs" />
+    <Compile Include="IAuditRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IRepositoryDepartment.cs" />
+    <Compile Include="IRepositoryPermissionUser.cs" />
+    <Compile Include="IRepositoryProjectClient.cs" />
+    <Compile Include="IRepositoryProjectEmp.cs" />
+    <Compile Include="IRepositoryTicket.cs" />
+    <Compile Include="IRepositoryUser.cs" />
+    <Compile Include="Migrations\202207280828445_mig.cs" />
+    <Compile Include="Migrations\202207280828445_mig.designer.cs">
+      <DependentUpon>202207280828445_mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208111142538_mig88.cs" />
+    <Compile Include="Migrations\202208111142538_mig88.designer.cs">
+      <DependentUpon>202208111142538_mig88.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208111146357_new.cs" />
+    <Compile Include="Migrations\202208111146357_new.designer.cs">
+      <DependentUpon>202208111146357_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208141016180_2033.cs" />
+    <Compile Include="Migrations\202208141016180_2033.designer.cs">
+      <DependentUpon>202208141016180_2033.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209010622088_mig19.cs" />
+    <Compile Include="Migrations\202209010622088_mig19.designer.cs">
+      <DependentUpon>202209010622088_mig19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209010725094_migLog.cs" />
+    <Compile Include="Migrations\202209010725094_migLog.designer.cs">
+      <DependentUpon>202209010725094_migLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209110922174_logs22233.cs" />
+    <Compile Include="Migrations\202209110922174_logs22233.designer.cs">
+      <DependentUpon>202209110922174_logs22233.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="RepositoryDepartment.cs" />
+    <Compile Include="RepositoryPermissionUser.cs" />
+    <Compile Include="RepositoryProjectClient.cs" />
+    <Compile Include="RepositoryProjectEmp.cs" />
+    <Compile Include="RepositoryUser.cs" />
+    <Compile Include="UserDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202207280828445_mig.resx">
+      <DependentUpon>202207280828445_mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208111142538_mig88.resx">
+      <DependentUpon>202208111142538_mig88.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208111146357_new.resx">
+      <DependentUpon>202208111146357_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208141016180_2033.resx">
+      <DependentUpon>202208141016180_2033.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209010622088_mig19.resx">
+      <DependentUpon>202209010622088_mig19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209010725094_migLog.resx">
+      <DependentUpon>202209010725094_migLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209110922174_logs22233.resx">
+      <DependentUpon>202209110922174_logs22233.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Service.Models.DepartmentModel>
+@using TicketingSystemNew2.enums
+
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.MyErrorMessage != null)
+{
+
+
+    <div class="alert alert-danger" style="font-size:20px;">
+        Exception Details :
+        @ViewBag.MyErrorMessage
+    </div>
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    @*<script>
+
+            $(document).ready(function () {
+                debugger;
+                $('#myTable').DataTable();
+
+            });
+        </script>*@
+
+</head>
+
+<body>
+
+    <h2>Index</h2>
+
+    @{ var temp = @TempData["AlertMsg"]; }
+
+
+    @if (temp != null && temp.ToString() != "0")
+
+    {
+        <div class="alert alert-success" style="font-size:20px;">
+            <strong> success !</strong>   @temp
+        </div>
+
+    }
+
+
+
+    @*<p>
+            @Html.ActionLink("Create New Department", "Create", null, new { @class = "btn btn-primary" })
+        </p>*@
+
+    @{
+
+        bool isSuperAdmin = Convert.ToInt32(Session["UserID"]) == (int)perRole.SuperAdmin;
+        if (isSuperAdmin)
+        {
+            <p>
+                @Html.ActionLink("Create New Department", "Create", null, new { @class = "btn btn-primary" })
+            </p>
+        }
+        else
+        {
+
+
+            List<int> objlt = (List<int>)Session["userRoles"];
+            var list = (List<int>)Session["userRoles"];
+            foreach (var c in list)
+            {
+                if ((int)c == (int)permission.AddDepartment)
+                {
+
+                    <p>
+                        @Html.ActionLink("Create New Department", "Create", null, new { @class = "btn btn-primary" })
+                    </p>
+                }
+            }
+        }
+    }
+
+    <table id="myTable" class="table">
+        <thead>
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+
+
+
+                    @{
+
+                        if (isSuperAdmin)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                            </td>
+                        }
+                        else
+                        {
+
+
+
+                            List<int> objlt1 = (List<int>)Session["userRoles"];
+                            var list1 = (List<int>)Session["userRoles"];
+                            foreach (var c in list1)
+                            {
+                                if ((int)c == (int)permission.UpdateDepartment)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+                                    </td>
+                                }
+                                if ((int)c == (int)permission.DeleteDepartment)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                    </td>
+                                }
+                            }
+
+                        }
+                    }
+                </tr>
+                        }
+                        }
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+            //    $('#myTable').dataTable();
+        });
+
+    </script>
+}
+@*<div>
+        @Html.ActionLink("Back to List", "Loggedin", "Login")
+    </div>*@
+
+
+
+
+@*}*@
+
+
+@*<script>
+
+
+        $(document).ready(function () {
+            $('#myTable').dataTable();
+        });
+    </script>*@
